@@ -173,10 +173,10 @@ int main(int argc, char** argv) {
 
   // Create a configuration for configuring the pipeline with a non default profile
   rs2::config cfg;
-  cfg.enable_stream(RS2_STREAM_INFRARED, 1, 640, 480, RS2_FORMAT_Y8, 30);
-  cfg.enable_stream(RS2_STREAM_INFRARED, 2, 640, 480, RS2_FORMAT_Y8, 30);
-  cfg.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_ANY, 30);
-  cfg.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
+  cfg.enable_stream(RS2_STREAM_INFRARED, 1, 848, 480, RS2_FORMAT_Y8, 30);
+  cfg.enable_stream(RS2_STREAM_INFRARED, 2, 848, 480, RS2_FORMAT_Y8, 30);
+  cfg.enable_stream(RS2_STREAM_DEPTH, 848, 480, RS2_FORMAT_ANY, 30);
+  cfg.enable_stream(RS2_STREAM_COLOR, 848, 480, RS2_FORMAT_BGR8, 30);
 
   // Declare RealSense pipeline, encapsulating the actual device and sensors
   rs2::pipeline pipe;
@@ -330,9 +330,7 @@ int main(int argc, char** argv) {
       if (current_status.map_changed) {
         // todo: publish trajectory if map changed (make function in system to get full trajectory)
       }
-      if(current_status.tracking_status != 2){
-        lost_timestamps.insert(timestamp);
-      }
+      if (current_status.tracking_status != 2) { lost_timestamps.insert(timestamp); }
 
       // crop tracked image to be same size as input
       cv::Mat tracked_frame = SLAM.GetDrawnFrame();
